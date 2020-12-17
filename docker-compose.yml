@@ -1,0 +1,26 @@
+version: "3"
+services:
+  mongo:
+    image: centos
+    ports:
+      - "8080:80"
+    container_name: test_centos
+
+  postgres:
+    image: mysql/mysql:5.7
+    ports:
+      - "3307:3306"
+    environment:
+      - POSTGRESQL_USER=test
+      - POSTGRESQL_PASS=oe9jaacZLbR9pN
+      - POSTGRESQL_DB=test
+    container_name: apworks_psql
+
+  rabbit:
+    image: rabbitmq
+    ports:
+      - 5672:5672
+      - 4369:4369
+      - 5671:5671
+      - 25672:25672
+    container_name: apworks_rabbitmq

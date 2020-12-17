@@ -1,0 +1,5 @@
+INSERT INTO `detects_classes`(`id`, `number`, `search_name`, `name`, `attribution`, `is_check`, `content`, `created_at`, `updated_at`) VALUES (1, '', 'p001', '过敏源', '过敏源', '1', NULL, '2020-12-04 16:51:12', '2020-12-04 16:51:12');
+INSERT INTO `detects_classes`(`id`, `number`, `search_name`, `name`, `attribution`, `is_check`, `content`, `created_at`, `updated_at`) VALUES (3, '', 'a00002', '肝', '科室', '0', NULL, '2020-12-04 16:51:49', '2020-12-04 16:51:49');
+INSERT INTO `detects_classes`(`id`, `number`, `search_name`, `name`, `attribution`, `is_check`, `content`, `created_at`, `updated_at`) VALUES (4, '', 'a0002', '皮质醇2', '科室', '0', NULL, '2020-12-04 16:51:49', '2020-12-04 17:03:01');
+INSERT INTO `detects_classes`(`id`, `number`, `search_name`, `name`, `attribution`, `is_check`, `content`, `created_at`, `updated_at`) VALUES (5, '', 'a0003', '肺', '科室', '1', '<p>测试</p>', '2020-12-10 17:22:17', '2020-12-10 17:22:17');
+INSERT INTO `detects_classes`(`id`, `number`, `search_name`, `name`, `attribution`, `is_check`, `content`, `created_at`, `updated_at`) VALUES (6, '', 'a00004', '心脏', '科室', '1', '<p>测试2</p>', '2020-12-10 17:24:14', '2020-12-10 17:24:14');

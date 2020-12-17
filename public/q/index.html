@@ -1,0 +1,298 @@
+<!DOCTYPE html>
+<html>
+<head lang="en">
+<meta charset="UTF-8">
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<meta name="renderer" content="webkit">
+<meta name="viewport" content="width=device-width">
+<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
+<meta name="viewport" content="initial-scale=1, maximum-scale=1, minimum-scale=1, user-scalable=no">
+<link rel="stylesheet" href="FMulSelectUI.min.css">
+<title>无限级联下拉选择器</title>
+</head>
+<body>
+<div style="margin-left: 50px">
+<br>
+<br>
+<button onclick="$('#val').html($('#mulselectbox1').FMulSelectGetVal());">取值id</button>
+<button onclick="$('#val').html($('#mulselectbox1').FMulSelectGetValTxt());">取值文本</button>
+<span id="val"></span>
+<br>
+<br>
+<input type="text" value='1,11,111,1111,11111' id="ids" style="width: 150px;height: 20px;padding: 2px 10px;" placeholder="数字，逗号隔开">
+<button onclick="$('#mulselectbox1').FMulSelectSetVal($('#ids').val().replace(/^\s*|\s*$/,'').split(',') || [1,11,111,1111,11111]);">
+设置值 id
+</button>
+<button onclick="$('#mulselectbox1').FMulSelectClear();">清空</button>
+<br>
+<br>
+<input type="number" value="4" id="num" style="width: 60px;height: 20px;padding: 2px 10px;">
+<button onclick="setLevel()">设置联动数量</button>
+<br><br><br>
+<span>选择机构（8级）：</span>
+<div id="mulselectbox1"></div>
+
+    <br/>
+    <br/>
+<div id="mulselectbox2"></div>
+</div>
+
+<button id="add">添加</button>
+<br><br><br>
+<pre style="padding-left: 50px;font-size: 14px;color: #828282;font-weight: 600;line-height: 20px">
+/*
+* 可配置级别的联动下拉选择器
+* config 属性：
+* @ width: 200,  // 宽度，默认自动
+* @ height: 32,  // 高度，默认30px
+* @ levels: 3,   // 联动级别数量，默认 3级 ,可配置范围 1-n，理论上没有上限
+* @ data: data, // 数据源，json格式 ,此数据的层级数需与levels 值相同，否则会出错
+* @ levelNames: ['省', '市', '区'], //每个级别的名称，如省市区
+*
+    数据源格式：
+       var datas = [
+        {
+            "name1": "河北省",
+            "id": 2,
+            "child": [
+                {
+                    "name1": "石家庄市",
+                    "id": 21,
+                    "child": [
+                        {
+                            "name1": "长安区",
+                            "id": 211
+                        }
+                    ]
+                }
+            ]
+        }
+      ];
+*
+*
+$('#mulselectbox1').FMulSelect({
+        // width: 500,  // 宽度，默认150px
+        height: 32,  // 高度，默认30px
+        levels: 10,   // 联动级别数量，默认 3级 ,可配置范围 1-n，理论上没有上限
+        data: datas, // 数据源，json格式
+        levelNames: ['省', '市', '区', '街道', '小区', '楼号', '单元', '门牌号'],//每个级别的名称，如省市区
+        dataKeyNames: {    //配置数据源datas的key值, 默认 id  name  child
+                "id": "id",
+                "name": "name1",
+                "childs": "child"
+            }
+    });
+
+* 取值id    返回 字符串类型 | 分割，1|11|111|1111|11111
+$('#mulselectbox1').FMulSelectGetVal();
+*
+* 取值文本   返回 字符串类型 | 分割， 山东省|烟台市|芝罘区|幸福街道|幸福小区
+$('#mulselectbox1').FMulSelectGetValTxt();
+*
+* 清空
+$('#mulselectbox1').FMulSelectClear();
+
+*
+* 设置值  ['1','11','111','1111']
+$('#mulselectbox1').FMulSelectSetVal(ids);
+
+*
+*
+* */
+
+</pre>
+<br>
+<br>
+<br>
+<br>
+<script src="./jquery/jquery-1.10.2.js"></script>
+<script src="FMulSelectUI.min.js"></script>
+<script>
+    var datas = [
+        {
+            name1: "山东省",
+            id: 1,
+            child: [
+                {
+                    name1: "烟台市",
+                    id: 11,
+                    child: [
+                        {
+                            name1: "芝罘区",
+                            id: 111,
+                            child: [
+                                {
+                                    name1: "幸福街道",
+                                    id: 1111,
+                                    child: [
+                                        {
+                                            name1: "幸福小区",
+                                            id: 11111,
+                                            child: [
+                                                {
+                                                    name1: "10号楼",
+                                                    id: 111111,
+                                                    child: [
+                                                        {
+                                                            name1: "一单元",
+                                                            id: 1111111,
+                                                            child: [
+                                                                {
+                                                                    name1: "502",
+                                                                    id: 11111111
+                                                                }
+                                                            ]
+                                                        }
+                                                    ]
+                                                }
+                                            ]
+                                        }
+                                    ]
+                                }
+                            ]
+                        },
+                        {
+                            name1: "开发区",
+                            id: 112
+                        }
+                    ]
+                },
+                {
+                    name1: "济南市",
+                    id: 12,
+                    child: [
+                        {
+                            name1: "市中区",
+                            id: 121
+                        },
+                        {
+                            name1: "天桥区",
+                            id: 122
+                        },
+                        {
+                            name1: "长清区",
+                            id: 123
+                        }
+                    ]
+                },
+                {
+                    name1: "德州市",
+                    id: 13,
+                    child: [
+                        {
+                            name1: "德城区",
+                            id: 131
+                        },
+                        {
+                            name1: "乐陵市",
+                            id: 132
+                        },
+                        {
+                            name1: "平原县",
+                            id: 133
+                        }
+                    ]
+                }
+            ]
+        },
+        {
+            name1: "河北省",
+            id: 2,
+            child: [
+                {
+                    name1: "石家庄市",
+                    id: 21,
+                    child: [
+                        {
+                            name1: "长安区",
+                            id: 211
+                        },
+                        {
+                            name1: "裕华区",
+                            id: 212
+                        },
+                        {
+                            name1: "新华区",
+                            id: 213
+                        }
+                    ]
+                },
+                {
+                    name1: "沧州市",
+                    id: 22,
+                    child: [
+                        {
+                            name1: "新华区",
+                            id: 221
+                        },
+                        {
+                            name1: "运河区",
+                            id: 222
+                        }
+                    ]
+                },
+                {
+                    name1: "秦皇岛市",
+                    id: 23,
+                    child: [
+                        {
+                            name1: "山海关区",
+                            id: 231
+                        },
+                        {
+                            name1: "北戴河区",
+                            id: 232
+                        }
+                    ]
+                }
+            ]
+        }
+    ];
+
+    $('#mulselectbox1').FMulSelect({
+        // width: 500,  // 宽度，默认自动
+        height: 32,  // 高度，默认30px
+        levels: 8,   // 联动级别数量，默认 3级 ,可配置范围 1.txt-n，理论上没有上限
+        data: datas, // 数据源，json格式
+        levelNames: ['省', '市', '区', '街道', '小区', '楼号', '单元', '门牌号'],//每个级别的名称，如省市区
+        dataKeyNames: {  //配置数据源的key值 默认为 id  name  child
+            "id": "id",
+            "name": "name1",
+            "childs": "child"
+        }
+    });
+
+
+    function setLevel() {
+        var num = parseInt($('#num').val()) || 3;
+        $('#mulselectbox1').FMulSelect({
+            // width: 500,  // 宽度，默认自动
+            height: 32,  // 高度，默认30px
+            levels: num,   // 联动级别数量，默认 3级 ,可配置范围 1.txt-n，理论上没有上限
+            data: datas, // 数据源，json格式
+            levelNames: ['省', '市', '区', '街道', '小区', '楼号', '单元', '门牌号'],//每个级别的名称，如省市区
+            dataKeyNames: {  //配置数据源的key值 默认 id  name  child
+                "id": "id",
+                "name": "name1",
+                "childs": "child"
+            }
+        });
+    }
+
+    $('#add').on('click',function(){
+        $('#mulselectbox2').FMulSelect({
+            // width: 500,  // 宽度，默认自动
+            height: 32,  // 高度，默认30px
+            levels: 8,   // 联动级别数量，默认 3级 ,可配置范围 1.txt-n，理论上没有上限
+            data: datas, // 数据源，json格式
+            levelNames: ['省', '市', '区', '街道', '小区', '楼号', '单元', '门牌号'],//每个级别的名称，如省市区
+            dataKeyNames: {  //配置数据源的key值 默认为 id  name  child
+                "id": "id",
+                "name": "name1",
+                "childs": "child"
+            }
+        });
+    })
+</script>
+</body>
+</html>
